@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Demo Amcharts</title>
+</head>
+<body>
+  <div id="chartdiv" style="width: 50%; margin: 300px auto"></div>					
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+<script>
+// Apply chart themes
+am4core.useTheme(am4themes_animated);
+//am4core.useTheme(am4themes_kelly);
+
+// Create chart instance
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+var tooltipCustom = `
+            <div style="padding: 10px;width: fit-content;min-width: 200px;">
+            <div style="text-align: left; padding: 5px 0px">
+                <span style="color: black; font-size: 18px;">Pending Clogs</span>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: gray; font-size: 15px;">Men's East</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span>{research}</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span>Men's East</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span>{marketing}</span>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: left; padding: 5px 0px">
+                <span>Low Battery</span>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span>Men's East</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span>2</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span>Men's East</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span>2</span>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: left; padding: 5px 0px">
+                <span>Communication</span>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span>Men's East</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span>2</span>
+                </div>
+            </div>
+        </div>
+`;
+
+// Add data
+
+var chartdata = [{
+  "country": "Floor 1",
+  "research": 501.9,
+  "marketing": 250,
+  "sales": 199,
+  "total": 10,
+}, {
+  "country": "Floor 2",
+  "research": 301.9,
+  "marketing": 222,
+  "sales": 251,
+  "total": 15,
+}, {
+  "country": "Floor 3",
+  "research": 201.1,
+  "marketing": 170,
+  "sales": 199,
+  "total": 20,
+}, {
+  "country": "Floor 4",
+  "research": 165.8,
+  "marketing": 122,
+  "sales": 90,
+  "total": 25,
+}, {
+  "country": "Floor 5",
+  "research": 139.9,
+  "marketing": 99,
+  "sales": 252,
+  "total": 25,
+}, {
+  "country": "Floor 6",
+  "research": 128.3,
+  "marketing": 85,
+  "sales": 84,
+  "total": 25,
+}, {
+  "country": "Floor 7",
+  "research": 99,
+  "marketing": 93,
+  "sales": 142,
+  "total": 25,
+}, {
+  "country": "Floor 8",
+  "research": 60,
+  "marketing": 50,
+  "sales": 55,
+  "total": 25,
+}, {
+  "country": "Floor 9",
+  "research": 50,
+  "marketing": 42,
+  "sales": 25,
+  "total": 25,
+}];
+
+chart.data = chartdata;
+chart.svgContainer.htmlElement.style.height = '300px';
+// Create axes
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.minGridDistance = 20;
+
+var  valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+valueAxis.title.text = "Expenditure (M)";
+valueAxis.transitionDuration = 200;
+valueAxis.interpolationDuration = 200;
+valueAxis.rangeChangeDuration = 200;
+
+//var seriesTotal = chart.series.push(new am4charts.ColumnSeries());
+
+// Create series
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.valueX = "research";
+series.dataFields.categoryY = "country";
+series.name = "Research";
+series.stacked = true;
+series.strokeWidth = 0;
+series.columns.template.fill = am4core.color("#FCC876");
+
+var series2 = chart.series.push(new am4charts.ColumnSeries());
+series2.dataFields.valueX = "marketing";
+series2.dataFields.categoryY = "country";
+series2.name = "Marketing";
+series2.tooltipHTML = tooltipCustom;
+series2.tooltip.getFillFromObject = false;
+series2.tooltip.label.fill = am4core.color("#000");
+series2.tooltip.background.fill = am4core.color("#EFF0F1");
+series2.tooltip.background.cornerRadius = 25;
+series2.stacked = true;
+series2.strokeWidth = 0;
+series2.columns.template.fill = am4core.color("#F58C66");
+
+var series3 = chart.series.push(new am4charts.ColumnSeries());
+series3.dataFields.valueX = "sales";
+series3.dataFields.categoryY = "country";
+series3.name = "Sales";
+series3.stacked = true;
+series3.strokeWidth = 0;
+series3.columns.template.fill = am4core.color("#D4686C");
+series3.columns.template.column.adapter.add("cornerRadiusBottomRight", cornerRadius);
+series3.columns.template.column.adapter.add("cornerRadiusTopRight", cornerRadius);
+
+var valueLabel = series3.bullets.push(new am4charts.LabelBullet());
+valueLabel.label.text = "{total}";
+valueLabel.label.fontSize = 20;
+valueLabel.label.horizontalCenter = "left";
+valueLabel.label.dx = 10;
+// Add cursor
+chart.cursor = new am4charts.XYCursor();
+chart.cursor.behavior = "zoomXY";
+
+chart.scrollbarY = new am4charts.XYChartScrollbar();
+chart.scrollbarY.startGrip.hide();
+chart.scrollbarY.endGrip.hide();
+
+chart.scrollbarY.start = 1;
+chart.scrollbarY.end = 0.33;
+chart.scrollbarY.minWidth = 15;
+chart.scrollbarY.thumb.background.fill = am4core.color("#017acd");
+chart.scrollbarY.background.fill = am4core.color("#017acd");
+
+chart.zoomOutButton = new am4core.ZoomOutButton();
+chart.zoomOutButton.hide();
+
+// function getRandomInt(min, max){
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+
+// document.getElementById("update").addEventListener("click", function (event){
+//   event.preventDefault();
+  
+//   var updatedData = [];
+  
+//   chartdata.forEach(function (item){
+//     updatedData.push({
+//       "country": item.country,
+//       "research": item.research + 500,
+//       "marketing": item.marketing + 50,
+//       "sales": item.sales + getRandomInt(50, 500)
+//     });
+//   });
+  
+//   chart.data = updatedData;
+// });
+
+function cornerRadius(radius, item) {
+	var dataItem = item.dataItem;
+	// Find the last series in this stack
+	var lastSeries;
+	chart.series.each(function(s) {
+		if (dataItem.dataContext[s.dataFields.valueX] && !s.isHidden && !s.isHiding) {
+			lastSeries = s;
+		}
+	});
+  // If current series is the one, use rounded corner
+  dataItem.component == lastSeries ? 100 : radius;
+	return dataItem.component == lastSeries ? 10 : radius;
+}
+
+function cornerRadius1(radius, item) {
+	var dataItem = item.dataItem;
+	// Find the last series in this stack
+	var firstSeries = chart.series.values[0];
+  // If current series is the one, use rounded corner
+  var flag = false;
+  chart.series.each(function(s) {
+		if (dataItem.dataContext[s.dataFields.valueX] && !s.isHidden && !s.isHiding && !flag) {
+			firstSeries = s;
+      flag = true;
+		}
+	});
+  dataItem.component == firstSeries ? 100 : radius;
+  // console.log(dataItem)
+  console.log(dataItem);
+	return dataItem.component == firstSeries ? 10 : radius;
+}
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,178 @@
+<style>
+    #chartdiv {
+      width: 50%;
+      height: 400px;
+      margin: auto;
+    }
+    
+    </style>
+    
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    
+    <!-- Chart code -->
+    <script>
+    am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    
+    chart.data = [{
+      "date": new Date(2019, 10, 18),
+      "cars": 187,
+      "motorcycles": 650,
+      "bicycles": 121
+    }, {
+      "date": new Date(2019, 10, 19),
+      "cars": 1567,
+      "motorcycles": 683,
+      "bicycles": 146
+    }, {
+      "date": new Date(2019, 10, 20),
+      "cars": 617,
+      "motorcycles": 691,
+      "bicycles": 138
+    }, {
+      "date": new Date(2019, 10, 21),
+      "cars": 160,
+      "motorcycles": 642,
+      "bicycles": 127
+    }, {
+      "date": new Date(2019, 10, 22),
+      "cars": 1660,
+      "motorcycles": 699,
+      "bicycles": 105
+    }, {
+      "date": new Date(2019, 10, 23),
+      "cars": 1683,
+      "motorcycles": 721,
+      "bicycles": 109
+    }, {
+      "date": new Date(2019, 10, 24),
+      "cars": 1691,
+      "motorcycles": 737,
+      "bicycles": 112
+    }, {
+      "date": new Date(2019, 10, 25),
+      "cars": 1298,
+      "motorcycles": 680,
+      "bicycles": 101
+    }, {
+      "date": new Date(2019, 10, 26),
+      "cars": 1275,
+      "motorcycles": 664,
+      "bicycles": 97
+    }, {
+      "date": new Date(2019, 10, 27),
+      "cars": 1246,
+      "motorcycles": 648,
+      "bicycles": 93
+    }, {
+      "date": new Date(2019, 10, 28),
+      "cars": 1318,
+      "motorcycles": 697,
+      "bicycles": 111
+    }, {
+      "date": new Date(2019, 10, 29),
+      "cars": 1213,
+      "motorcycles": 633,
+      "bicycles": 87
+    }, {
+      "date": new Date(2019, 10, 30),
+      "cars": 1199,
+      "motorcycles": 621,
+      "bicycles": 79
+    }, {
+      "date": new Date(2019, 11, 01),
+      "cars": 1165,
+      "motorcycles": 232,
+      "bicycles": 75
+    }, {
+      "date": new Date(2019, 11, 02),
+      "cars": 1145,
+      "motorcycles": 219,
+      "bicycles": 88
+    }, {
+      "date": new Date(2019, 11, 03),
+      "cars": 1163,
+      "motorcycles": 201,
+      "bicycles": 82
+    }, {
+      "date": new Date(2019, 11, 04),
+      "cars": 1180,
+      "motorcycles": 285,
+      "bicycles": 87
+    }, {
+      "date": new Date(2019, 11, 05),
+      "cars": 1159,
+      "motorcycles": 277,
+      "bicycles": 71
+    }
+    ];
+    
+    //chart.dateFormatter.inputDateFormat = "yyyy-mm-dd";
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 60;
+    dateAxis.startLocation = 0.5;
+    dateAxis.endLocation = 0.5;
+    dateAxis.baseInterval = {
+      timeUnit: "date",
+      count: 1
+    }
+    
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.dateX = "date";
+    series.name = "cars";
+    series.dataFields.valueY = "cars";
+    series.fillOpacity = 0.6;
+    series.strokeWidth = 1;
+    series.stacked = true;
+    series.tensionX = 0.77;
+    series.fill = am4core.color("#F8C388");
+    series.stroke = am4core.color("#FACD95");
+
+    var series2 = chart.series.push(new am4charts.LineSeries());
+    series2.name = "motorcycles";
+    series2.dataFields.dateX = "date";
+    series2.dataFields.valueY = "motorcycles";
+    series2.tooltipHTML = "<img src='https://www.amcharts.com/lib/3/images/motorcycle.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>{valueY.value}</b></span>";
+    series2.tooltipText = "[#000]{valueY.value}[/]";
+    series2.tooltip.background.fill = am4core.color("#FFF");
+    series2.tooltip.getFillFromObject = false;
+    series2.tooltip.getStrokeFromObject = true;
+    series2.tooltip.background.strokeWidth = 3;
+    series2.sequencedInterpolation = true;
+    series2.fillOpacity = 0.6;
+    series2.stacked = true;
+    series2.strokeWidth = 1;
+    series2.tensionX = 0.77;
+    series2.fill = am4core.color("#EFB49E");
+    series2.stroke = am4core.color("#EEAD94");
+    
+    var series3 = chart.series.push(new am4charts.LineSeries());
+    series3.name = "bicycles";
+    series3.dataFields.dateX = "date";
+    series3.dataFields.valueY = "bicycles";
+    series3.sequencedInterpolation = true;
+    series3.fillOpacity = 0.6;
+    series3.defaultState.transitionDuration = 1000;
+    series3.stacked = true;
+    series3.strokeWidth = 1;
+    series3.tensionX = 0.77;
+    series3.fill = am4core.color("#F4D0CD");
+    series3.stroke = am4core.color("#F2BAB6");
+    
+    
+    }); // end am4core.ready()
+    </script>
+    
+    <!-- HTML -->
+    <div id="chartdiv"></div>

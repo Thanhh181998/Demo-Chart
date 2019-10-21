@@ -1,0 +1,78 @@
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+    
+    </style>
+    
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    
+    <!-- Chart code -->
+    <script>
+    am4core.ready(function() {
+    
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.PieChart);
+    
+    // Add data
+    chart.data = [ {
+      "country": "Saving Men's",
+      "litres": 701.9
+    }, {
+      "country": "Saving Women's",
+      "litres": 391.9
+    }, {
+      "country": "Saving Unisex's",
+      "litres": 51.1
+    },];
+    
+    // Set inner radius
+    chart.innerRadius = am4core.percent(60);
+
+    let label = chart.seriesContainer.createChild(am4core.Label);
+    label.text = "Hi There"
+    label.horizontalCenter = "middle";
+    label.verticalCenter = "middle";
+    label.fontSize = 40;
+    // Add and configure Series
+    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+
+    pieSeries.alignLabels = false;
+    //pieSeries.labels.template.bent = true;
+    pieSeries.labels.template.radius = -25;
+    pieSeries.labels.template.text = "{value.percent.formatNumber('#.0')}%";
+    pieSeries.labels.template.padding(10, 10, 10, 10);
+    pieSeries.labels.template.fill = am4core.color("#fff");
+    pieSeries.ticks.template.disabled = true;
+
+    pieSeries.colors.list = [
+      am4core.color("#FCC776"),
+      am4core.color("#D3686C"),
+      am4core.color("#EA9D77"),
+    ];
+
+    var labelBullet = pieSeries.bullets.push(new am4charts.LabelBullet());
+    labelBullet.label.text = "Thanh";
+    labelBullet.label.fill = am4core.color("#fff");
+   
+    // This creates initial animation
+    pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.slices.template.strokeWidth = 7;
+    pieSeries.slices.template.strokeOpacity = 1;
+
+    
+    }); // end am4core.ready()
+    </script>
+    
+    <!-- HTML -->
+    <div id="chartdiv"></div>

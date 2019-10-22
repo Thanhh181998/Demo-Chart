@@ -1,7 +1,7 @@
 <style>
     #chartdiv {
       width: 100%;
-      height: 500px;
+      height: 400px;
       margin: auto;
     }
     
@@ -24,102 +24,98 @@
     
     chart.data = [{
       "date": new Date(2019, 10, 18),
-      "cars": 187,
-      "motorcycles": 650,
-      "bicycles": 121
+      "men": 187,
+      "women": 650,
+      "unisex": 121
     }, {
       "date": new Date(2019, 10, 19),
-      "cars": 1567,
-      "motorcycles": 683,
-      "bicycles": 146
+      "men": 1567,
+      "women": 683,
+      "unisex": 146
     }, {
       "date": new Date(2019, 10, 20),
-      "cars": 617,
-      "motorcycles": 691,
-      "bicycles": 138
+      "men": 617,
+      "women": 691,
+      "unisex": 138
     }, {
       "date": new Date(2019, 10, 21),
-      "cars": 160,
-      "motorcycles": 642,
-      "bicycles": 127
+      "men": 160,
+      "women": 642,
+      "unisex": 127
     }, {
       "date": new Date(2019, 10, 22),
-      "cars": 1660,
-      "motorcycles": 699,
-      "bicycles": 105
+      "men": 1660,
+      "women": 699,
+      "unisex": 105
     }, {
       "date": new Date(2019, 10, 23),
-      "cars": 1683,
-      "motorcycles": 721,
-      "bicycles": 109
+      "men": 1683,
+      "women": 721,
+      "unisex": 109
     }, {
       "date": new Date(2019, 10, 24),
-      "cars": 1691,
-      "motorcycles": 737,
-      "bicycles": 112
+      "men": 1691,
+      "women": 737,
+      "unisex": 112
     }, {
       "date": new Date(2019, 10, 25),
-      "cars": 1298,
-      "motorcycles": 680,
-      "bicycles": 101
+      "men": 1298,
+      "women": 680,
+      "unisex": 101
     }, {
       "date": new Date(2019, 10, 26),
-      "cars": 1275,
-      "motorcycles": 664,
-      "bicycles": 97
+      "men": 1275,
+      "women": 664,
+      "unisex": 97
     }, {
       "date": new Date(2019, 10, 27),
-      "cars": 1246,
-      "motorcycles": 648,
-      "bicycles": 93
+      "men": 1246,
+      "women": 648,
+      "unisex": 93
     }, {
       "date": new Date(2019, 10, 28),
-      "cars": 1318,
-      "motorcycles": 697,
-      "bicycles": 111
+      "men": 1318,
+      "women": 697,
+      "unisex": 111
     }, {
       "date": new Date(2019, 10, 29),
-      "cars": 1213,
-      "motorcycles": 633,
-      "bicycles": 87
+      "men": 1213,
+      "women": 633,
+      "unisex": 87
     }, {
       "date": new Date(2019, 10, 30),
-      "cars": 1199,
-      "motorcycles": 621,
-      "bicycles": 79
-    }, {
-      "date": new Date(2019, 10, 31),
-      "cars": 1110,
-      "motorcycles": 210,
-      "bicycles": 81
+      "men": 1199,
+      "women": 621,
+      "unisex": 79
     }, {
       "date": new Date(2019, 11, 01),
-      "cars": 1165,
-      "motorcycles": 232,
-      "bicycles": 75
+      "men": 1165,
+      "women": 232,
+      "unisex": 75
     }, {
       "date": new Date(2019, 11, 02),
-      "cars": 1145,
-      "motorcycles": 219,
-      "bicycles": 88
+      "men": 1145,
+      "women": 219,
+      "unisex": 88
     }, {
       "date": new Date(2019, 11, 03),
-      "cars": 1163,
-      "motorcycles": 201,
-      "bicycles": 82
+      "men": 1163,
+      "women": 201,
+      "unisex": 82
     }, {
       "date": new Date(2019, 11, 04),
-      "cars": 1180,
-      "motorcycles": 285,
-      "bicycles": 87
+      "men": 1180,
+      "women": 285,
+      "unisex": 87
     }, {
       "date": new Date(2019, 11, 05),
-      "cars": 1159,
-      "motorcycles": 277,
-      "bicycles": 71
+      "men": 1159,
+      "women": 277,
+      "unisex": 71
     }
     ];
     
+    let totalMen = 0;
     //chart.dateFormatter.inputDateFormat = "yyyy-mm-dd";
     var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 60;
@@ -129,14 +125,73 @@
     //   timeUnit: "date",
     //   count: 0.5
     // }
+    var tooltipCustom = `
+            <div style="padding: 10px;width: fit-content;min-width: 160px;>
+            <div style="text-align: left; padding: 5px 0px">
+                <span style="color: black; font-size: 18px;  font-weight: bold;">Water Consumed</span>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black;">Women</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;  font-weight: bold;">{men} gal</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black;">Men</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;  font-weight: bold;">{women} gal</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black;">Unisex</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;  font-weight: bold;">{unisex} gal</span>
+                </div>
+            </div>
+            <hr>
+            <div style="text-align: left; padding: 5px 0px">
+                <span style="color: black; font-size: 18px;  font-weight: bold;">Water Saved</span>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black;">Women</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;  font-weight: bold;">56 gal</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black;">Men</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;   font-weight: bold;">78 gal</span>
+                </div>
+            </div>
+            <div style="display: flex">
+                <div style="flex: 1">
+                    <span style="color: black; ">Unisex</span>
+                </div>
+                <div style="flex: 1"> 
+                    <span style="color: black;  font-weight: bold;">15 gal</span>
+                </div>
+            </div>
+        </div>
+    `;
     
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
     
     var series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = "date";
-    series.name = "cars";
-    series.dataFields.valueY = "cars";
+    series.name = "men";
+    series.dataFields.valueY = "men";
     series.fillOpacity = 0.6;
     series.strokeWidth = 1;
     series.stacked = true;
@@ -145,11 +200,10 @@
     series.stroke = am4core.color("#FACD95");
 
     var series2 = chart.series.push(new am4charts.LineSeries());
-    series2.name = "motorcycles";
+    series2.name = "women";
     series2.dataFields.dateX = "date";
-    series2.dataFields.valueY = "motorcycles";
-    series2.tooltipHTML = "<img src='https://www.amcharts.com/lib/3/images/motorcycle.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>{valueY.value}</b></span>";
-    series2.tooltipText = "[#000]{valueY.value}[/]";
+    series2.dataFields.valueY = "women";
+    series2.tooltipHTML = tooltipCustom;
     series2.tooltip.background.fill = am4core.color("#FFF");
     series2.tooltip.getFillFromObject = false;
     series2.tooltip.getStrokeFromObject = true;
@@ -163,9 +217,9 @@
     series2.stroke = am4core.color("#EEAD94");
     
     var series3 = chart.series.push(new am4charts.LineSeries());
-    series3.name = "bicycles";
+    series3.name = "unisex";
     series3.dataFields.dateX = "date";
-    series3.dataFields.valueY = "bicycles";
+    series3.dataFields.valueY = "unisex";
     series3.sequencedInterpolation = true;
     series3.fillOpacity = 0.6;
     series3.defaultState.transitionDuration = 1000;

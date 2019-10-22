@@ -1,7 +1,19 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+
+  <style>
     #chartdiv {
       width: 100%;
       height: 500px;
+    }
+    foreignObject {
+      height: 100px;
     }
     
     </style>
@@ -25,35 +37,52 @@
     // Add data
     chart.data = [ {
       "country": "Saving Men's",
-      "litres": 701.9
+      "litres": 5,
+      "link": ""
     }, {
       "country": "Saving Women's",
-      "litres": 391.9
+      "litres": 10
     }, {
       "country": "Saving Unisex's",
-      "litres": 51.1
+      "litres": 16
     },];
     
     // Set inner radius
     chart.innerRadius = am4core.percent(60);
 
     let label = chart.seriesContainer.createChild(am4core.Label);
-    label.text = "Hi There"
+    label.html = `<div style="">
+                    <span style="font-size: 60px">18k</span><span> gal </span> <br>
+                    <span>
+                      Total Water Saving
+                    </span>
+                  </div>`;
     label.horizontalCenter = "middle";
     label.verticalCenter = "middle";
-    label.fontSize = 40;
     // Add and configure Series
     var pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = "litres";
     pieSeries.dataFields.category = "country";
+    pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.dataFields.country = "country";
+    pieSeries.dataFields.litres = "litres";
+    pieSeries.labels.template.html = `
+      <div style="float:left; font-size: 14px; margin-top: 3px">
+      <span>{country}</span>
+      <br>
+      <img src="men-rooms.png" style="height: 27px;">
+      <span style="font-size: 28px; font-weight: bold;">{litres}</span><span style="font-weight: bold;">k</span>
+      <span>gal</span></div>
+	    <div style="font-size: 18px;margin-left: 30px;">
+      </div>
+    `;
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
 
-    pieSeries.alignLabels = false;
-    //pieSeries.labels.template.bent = true;
-    pieSeries.labels.template.radius = -25;
-    pieSeries.labels.template.text = "{value.percent.formatNumber('#.0')}%";
-    pieSeries.labels.template.padding(10, 10, 10, 10);
-    pieSeries.labels.template.fill = am4core.color("#fff");
-    pieSeries.ticks.template.disabled = true;
+    // This creates initial animation
+    pieSeries.hiddenState.properties.opacity = 1;
+    pieSeries.hiddenState.properties.endAngle = -90;
+    pieSeries.hiddenState.properties.startAngle = -90;
 
     pieSeries.colors.list = [
       am4core.color("#FCC776"),
@@ -73,6 +102,13 @@
     
     }); // end am4core.ready()
     </script>
+  </head>
+  <body>
+      <div id="chartdiv"></div>
+      
+  </body>
+</html>
     
     <!-- HTML -->
-    <div id="chartdiv"></div>
+    
+    

@@ -1,7 +1,7 @@
 <style>
     #chartdiv {
-      width: 50%;
-      height: 400px;
+      width: 100%;
+      height: 500px;
       margin: auto;
     }
     
@@ -88,6 +88,11 @@
       "motorcycles": 621,
       "bicycles": 79
     }, {
+      "date": new Date(2019, 10, 31),
+      "cars": 1110,
+      "motorcycles": 210,
+      "bicycles": 81
+    }, {
       "date": new Date(2019, 11, 01),
       "cars": 1165,
       "motorcycles": 232,
@@ -120,10 +125,10 @@
     dateAxis.renderer.minGridDistance = 60;
     dateAxis.startLocation = 0.5;
     dateAxis.endLocation = 0.5;
-    dateAxis.baseInterval = {
-      timeUnit: "date",
-      count: 1
-    }
+    // dateAxis.baseInterval = {
+    //   timeUnit: "date",
+    //   count: 0.5
+    // }
     
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
@@ -169,6 +174,15 @@
     series3.tensionX = 0.77;
     series3.fill = am4core.color("#F4D0CD");
     series3.stroke = am4core.color("#F2BAB6");
+    
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.xAxis = dateAxis;
+    
+    // Add a legend
+    chart.legend = new am4charts.Legend();
+    chart.legend.position = "top";
+    
+    // axis ranges
     
     
     }); // end am4core.ready()

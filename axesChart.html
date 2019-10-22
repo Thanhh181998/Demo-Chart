@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<style>
+#axeschartdiv {
+            width: 100%;
+            height: 200px;
+            font-size:7px;
+        }
+</style>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+am4core.ready(function() {
+// Themes begin
+am4core.useTheme(am4themes_animated);
+var chart = am4core.create("axeschartdiv", am4charts.XYChart);
+        chart.paddingRight = 20;
+        chart.paddingLeft = -20;
+        chart.paddingTop = 20;
+
+        var tooltipCustom = `
+        <div style="padding: 10px;width: fit-content;min-width: 200px;font-size:12px !important;">
+    <div style="text-align: left; padding: 5px 0px">
+        <span style="color: black; font-size: 18px;">Avg. No. of Visit</span>
+    </div>
+    <div style="display: flex">
+        <div style="flex: 1">
+            <span style="color: gray; font-size: 15px;">Monday</span>
+        </div>
+        <div style="flex: 1"> 
+            <span style="color: black; font-size: 15px;">{monday}</span>
+        </div>
+    </div>
+    <div style="display: flex">
+        <div style="flex: 1">
+            <span style="color: gray; font-size: 15px;">Tuesday</span>
+        </div>
+        <div style="flex: 1"> 
+            <span style="color: black; font-size: 15px;">{tuesday}</span>
+        </div>
+    </div>
+    <div style="display: flex">
+        <div style="flex: 1">
+            <span style="color: gray; font-size: 15px;">Wednesday</span>
+        </div>
+        <div style="flex: 1"> 
+            <span style="color: black; font-size: 15px;">{wednesday}</span>
+        </div>
+    </div>
+    <div style="display: flex">
+        <div style="flex: 1">
+            <span style="color: gray; font-size: 15px;">Thurday</span>
+        </div>
+        <div style="flex: 1"> 
+            <span style="color: black; font-size: 15px;">{thursday}</span>
+        </div>
+    </div>
+    <div style="display: flex">
+        <div style="flex: 1">
+            <span style="color: gray; font-size: 15px;">Friday</span>
+        </div>
+        <div style="flex: 1"> 
+            <span style="color: black; font-size: 15px;">{friday}</span>
+        </div>
+    </div>
+</div>
+        `;
+
+        // Add data
+        chart.data = [{
+            time: "12:00am",
+            monday: 7,
+            tuesday: 5,
+            wednesday:9,
+            thursday:4,
+            friday:0,
+        }, {
+            time: "01:00am",
+            monday: 12,
+            tuesday: 0,
+            wednesday:5,
+            thursday:6,
+            friday:4,
+        }, {
+            time: "02:00am",
+            monday: 5,
+            tuesday: 8,
+            wednesday:1,
+            thursday:3,
+            friday:4,
+        }, {
+            time: "03:00am",
+            monday: 8,
+            tuesday: 2,
+            wednesday:10,
+            thursday:0,
+            friday:8,
+        }, {
+            time: "04:00am",
+            monday: 6,
+            tuesday: 10,
+            wednesday:8,
+            thursday:4,
+            friday:6,
+        }, {
+            time: "05:00am",
+            monday: 5,
+            tuesday: 2,
+            wednesday:3,
+            thursday:6,
+            friday:6,
+        }, {
+            time: "06:00am",
+            monday: 9,
+            tuesday: 4,
+            wednesday:1,
+            thursday:1,
+            friday:6,
+        }, {
+            time: "07:00am",
+            monday: 10,
+            tuesday: 9,
+            wednesday:4,
+            thursday:4,
+            friday:5,
+        }, {
+            time: "08:00am",
+            monday: 9,
+            tuesday: 9,
+            wednesday:8,
+            thursday:2,
+            friday:5,
+        }, {
+            time: "09:00am",
+            monday: 12,
+            tuesday: 9,
+            wednesday:7,
+            thursday:7,
+            friday:3,
+        }, {
+            time: "10:00am",
+            monday: 5,
+            tuesday: 9,
+            wednesday:2,
+            thursday:5,
+            friday:2,
+        }, {
+            time: "11:00am",
+            monday: 8,
+            tuesday: 6,
+            wednesday:5,
+            thursday:5,
+            friday:5,
+        }, {
+            time: "12:00pm",
+            monday: 8,
+            tuesday: 6,
+            wednesday:2,
+            thursday:5,
+            friday:8,
+        }, {
+            time: "01:00pm",
+            monday: 6,
+            tuesday: 8,
+            wednesday:2,
+            thursday:3,
+            friday:6,
+        }, {
+            time: "02:00pm",
+            monday: 11,
+            tuesday: 6,
+            wednesday:5,
+            thursday:5,
+            friday:8,
+        }, {
+            time: "03:00pm",
+            monday: 15,
+            tuesday: 7,
+            wednesday:5,
+            thursday:7,
+            friday:3,
+        }, {
+            time: "04:00pm",
+            monday: 20,
+            tuesday: 5,
+            wednesday:2,
+            thursday:2,
+            friday:5,
+        }, {
+            time: "05:00pm",
+            monday: 22,
+            tuesday: 12,
+            wednesday:0,
+            thursday:5,
+            friday:4,
+        }, {
+            time: "06:00pm",
+            monday: 2,
+            tuesday: 7,
+            wednesday:6,
+            thursday:7,
+            friday:8,
+        }, {
+            time: "07:00pm",
+            monday: 3,
+            tuesday: 2,
+            wednesday:4,
+            thursday:6,
+            friday:12,
+        }, {
+            time: "08:00pm",
+            monday: 21,
+            tuesday: 1,
+            wednesday:5,
+            thursday:2,
+            friday:7,
+        }, {
+            time: "09:00pm",
+            monday: 20,
+            tuesday: 2,
+            wednesday:5,
+            thursday:7,
+            friday:4,
+        }, {
+            time: "10:00pm",
+            monday: 15,
+            tuesday: 7,
+            wednesday:2,
+            thursday:4,
+            friday:3,
+        }, {
+            time: "11:00pm",
+            monday: 23,
+            tuesday: 5,
+            wednesday:7,
+            thursday:3,
+            friday:2,
+        }];
+
+        // Create axes
+        var valuexAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        valuexAxis.dataFields.category = "time";
+        valuexAxis.renderer.grid.template.strokeOpacity = 0;
+        valuexAxis.renderer.grid.template.strokeWidth = 0;
+        valuexAxis.startLocation = 0.5;
+        valuexAxis.endLocation = 0.5;
+        valuexAxis.renderer.minGridDistance = 5;
+
+        // Create value axis
+        var valueyAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueyAxis.renderer.minGridDistance = 10;
+        valueyAxis.title.text="Avg. No. of Visit";
+        valueyAxis.title.rotation=0;
+        valueyAxis.title.align="center";
+        valueyAxis.title.valign="top";
+        valueyAxis.title.dy = -20;
+        valueyAxis.title.dx = 40;
+
+        // Create series
+        var series1 = chart.series.push(new am4charts.LineSeries());
+        series1.dataFields.valueY = "monday";
+        series1.dataFields.categoryX = "time";
+        series1.stroke="#EF3A24";
+        series1.name = "Monday";
+        series1.strokeWidth = 1;
+        series1.tensionX = 0.8;
+        // series1.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series1.fill = series1.stroke;
+        series1.fillOpacity = 0.15;
+        series1.tooltip.getFillFromObject = false;
+        series1.tooltip.background.fill = am4core.color("#EF3A24");
+        var bullet1 = series1.bullets.push(new am4charts.CircleBullet());
+        var hoverState1 = bullet1.states.create("hover");
+        hoverState1.properties.scale = 1.3;
+		
+		var fillModifier = new am4core.LinearGradientModifier();
+        fillModifier.opacities = [1, 0];
+        fillModifier.gradient.rotation = 90;
+        series1.segments.template.fillModifier = fillModifier;
+
+//         chart.addListener("clickGraphItem", function (event) {
+//   // click event occurreds
+//   // let's do something cool
+// });
+
+        var series2 = chart.series.push(new am4charts.LineSeries());
+        series2.dataFields.valueY = "tuesday";
+        series2.dataFields.categoryX = "time";
+        series2.stroke="#E2743D";
+        series2.name = "Tuesday";
+        series2.strokeWidth = 1;
+        series2.tensionX = 0.8;
+        // series2.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series2.tooltip.getFillFromObject = false;
+        series2.tooltip.background.fill = am4core.color("#E2743D");
+
+        var series3 = chart.series.push(new am4charts.LineSeries());
+        series3.dataFields.valueY = "wednesday";
+        series3.dataFields.categoryX = "time";
+        series3.stroke="#FBB03B";
+        series3.name = "Wednesday";
+        series3.strokeWidth = 1;
+        series3.tensionX = 0.8;
+        // series3.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series3.tooltip.getFillFromObject = false;
+        series3.tooltip.background.fill = am4core.color("#FBB03B");
+
+        var series4 = chart.series.push(new am4charts.LineSeries());
+        series4.dataFields.valueY = "thursday";
+        series4.dataFields.categoryX = "time";
+        series4.stroke="#5CBA47";
+        series4.name = "Thursday";
+        series4.strokeWidth = 1;
+        series4.tensionX = 0.8;
+        // series4.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series4.tooltip.getFillFromObject = false;
+        series4.tooltip.background.fill = am4core.color("#5CBA47");
+
+        var series5 = chart.series.push(new am4charts.LineSeries());
+        series5.dataFields.valueY = "friday";
+        series5.dataFields.categoryX = "time";
+        series5.stroke="#0096EA";
+        series5.name = "Friday";
+        series5.strokeWidth = 1;
+        series5.tensionX = 0.8;
+        // series5.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series5.tooltip.getFillFromObject = false;
+        series5.tooltip.background.fill = am4core.color("#0096EA");
+
+        chart.legend = new am4charts.Legend();
+
+        chart.cursor = new am4charts.XYCursor();
+        
+        series1.tooltipHTML = tooltipCustom;
+        series1.tooltip.getFillFromObject = false;
+        series1.tooltip.label.fill = am4core.color("#000");
+        series1.tooltip.background.fill = am4core.color("#F8FAFB");
+        series1.tooltip.background.cornerRadius = 25;
+    }
+   );
+</script>
+
+<div id="axeschartdiv"></div>
+</body>
+</html>

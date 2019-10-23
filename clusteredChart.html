@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+var chart = am4core.create("clusteredchartdiv", am4charts.XYChart);
+    chart.paddingRight = 20;
+    chart.paddingLeft = -20;
+    chart.paddingTop = 20;
+
+    // Add data
+    chart.data = [{
+        date: "Jan 1",
+        NoV: 24.6,
+        ANoV: 252
+      }, {
+        date: "Jan 2",
+        NoV: 295.5,
+        ANoV: 254.1
+      }, {
+        date: "Jan 3",
+        NoV: 305.1,
+        ANoV: 231.9
+      }, {
+        date: "Jan 4",
+        NoV: 269.2,
+        ANoV: 227.8
+      }, {
+        date: "Jan 5",
+        NoV: 232.5,
+        ANoV: 181.1
+      }, {
+        date: "Jan 6",
+        NoV: 294.4,
+        ANoV: 168.1
+      }, {
+        date: "Jan 7",
+        NoV: 217.3,
+        ANoV: 206.6
+      }, {
+        date: "Jan 8",
+        NoV: 267.8,
+        ANoV: 168.7
+      }, {
+        date: "Jan 9",
+        NoV: 259.1,
+        ANoV: 191.2
+      }, {
+        date: "Jan 10",
+        NoV: 262.4,
+        ANoV: 164.4
+      }, {
+        date: "Jan 11",
+        NoV: 243.6,
+        ANoV: 255
+      }, {
+        date: "Jan 12",
+        NoV: 291.5,
+        ANoV: 251.1
+      }, {
+        date: "Jan 13",
+        NoV: 303.1,
+        ANoV: 236.9
+      }, {
+        date: "Jan 14",
+        NoV: 267.2,
+        ANoV: 225.8
+      }, {
+        date: "Jan 15",
+        NoV: 238.5,
+        ANoV: 184.1
+      }, {
+        date: "Jan 16",
+        NoV: 290.4,
+        ANoV: 160.1
+      }, {
+        date: "Jan 17",
+        NoV: 215.3,
+        ANoV: 207.6
+      }, {
+        date: "Jan 18",
+        NoV: 261.8,
+        ANoV: 164.7
+      }, {
+        date: "Jan 19",
+        NoV: 255.1,
+        ANoV: 194.2
+      }, {
+        date: "Jan 20",
+        NoV: 266.4,
+        ANoV: 167.4
+      }, {
+        date: "Jan 21",
+        NoV: 248.6,
+        ANoV: 251
+      }, {
+        date: "Jan 22",
+        NoV: 295.5,
+        ANoV: 259.1
+      }, {
+        date: "Jan 23",
+        NoV: 301.1,
+        ANoV: 234.9
+      }, {
+        date: "Jan 24",
+        NoV: 265.2,
+        ANoV: 226.8
+      }, {
+        date: "Jan 25",
+        NoV: 238.5,
+        ANoV: 180.1
+      }, {
+        date: "Jan 26",
+        NoV: 294.4,
+        ANoV: 168.1
+      }, {
+        date: "Jan 27",
+        NoV: 216.3,
+        ANoV: 204.6
+      }, {
+        date: "Jan 28",
+        NoV: 262.8,
+        ANoV: 160.7
+      }, {
+        date: "Jan 29",
+        NoV: 254.1,
+        ANoV: 198.2
+      }, {
+        date: "Jan 30",
+        NoV: 269.4,
+        ANoV: 167.4
+      }, {
+        date: "Jan 31",
+        NoV: 265.4,
+        ANoV: 168.4
+      }];
+
+    // Create axes
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "date";
+    // categoryAxis.numberFormatter.numberFormat = "#";
+    // categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.grid.template.strokeOpacity = 0;
+    categoryAxis.renderer.grid.template.strokeWidth = 0;
+    categoryAxis.renderer.cellStartLocation = 0.25;
+    categoryAxis.renderer.cellEndLocation = 0.75;
+    categoryAxis.renderer.minGridDistance = 10;
+
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.minGridDistance = 10;
+    valueAxis.title.text="No. of Visit";
+    valueAxis.title.rotation = 0;
+    valueAxis.title.align="center";
+    valueAxis.title.valign="top";
+    valueAxis.title.dy = -20;
+    valueAxis.title.dx = 35;
+    var range = valueAxis.axisRanges.create();
+    range.value = 220;
+    range.grid.stroke = am4core.color("#C7E7C0");
+    range.grid.strokeWidth = 1.5;
+    range.grid.strokeOpacity = 1;
+
+    // Create series
+    function createSeries(field, name, color, width) {
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = field;
+        series.dataFields.categoryX = "date";
+        series.name = name;
+        series.fill = color;
+        series.columns.template.height = am4core.percent(100);
+        series.columns.template.width = am4core.percent(width);
+        // series.sequencedInterpolation = true;
+      
+        var columnTemplate = series.columns.template;
+        columnTemplate.column.cornerRadiusTopLeft = 20;
+        columnTemplate.column.cornerRadiusTopRight = 20;
+        columnTemplate.strokeOpacity = 0;
+
+        // var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+        // valueLabel.label.horizontalCenter = "left";
+        // valueLabel.label.dx = 10;
+        // valueLabel.label.hideOversized = false;
+        // valueLabel.label.truncate = false;
+
+        // var categoryLabel = series.bullets.push(new am4charts.LabelBullet());
+        // categoryLabel.label.horizontalCenter = "right";
+        // categoryLabel.label.dx = -10;
+        // categoryLabel.label.fill = am4core.color("#fff");
+        // categoryLabel.label.hideOversized = false;
+        // categoryLabel.label.truncate = false;
+    }
+
+    createSeries("NoV", "Daily No. of Visits", "#EDA09A", 120);
+    createSeries("ANoV", "Day Avg. No. of Visits", "#FDDFB1", 80);
+   });
+</script>
+<style>
+#clusteredchartdiv {
+  width: 100%;
+  height: 200px;
+  font-size: 7px;
+}
+.chart-legend {
+    position: absolute;
+    font-size: 7px;
+    left: 20%;
+    width: fit-content;
+}
+.legend-box {
+    width: 7px;
+    height: 7px;
+}
+.legend-line {
+    width: 15px;
+    height: 2px;
+    margin-top: 3px;
+}
+.legend-text {
+    font-size: 7px;
+    line-height: 7px;
+    margin-left: 6px;
+    color: gray !important;
+    font-weight: 600;
+}
+.bg-color-eda09a {
+    background-color: #EDA09A;
+}
+.bg-color-fddfb1 {
+    background-color: #FDDFB1;
+}
+.bg-color-c7e7c0 {
+    background-color: #c7e7c0;
+}
+.pd-10 {
+	padding: 10px;
+}
+.dl-flex {
+	display: flex !important;
+}
+.w-110-p {
+	width: 110px !important;
+}
+.float-l {
+	float: left;
+}
+</style>
+
+  <div id="clusteredchartdiv"></div>
+  	<div class="chart-legend">
+        <div class="pd-10 dl-flex w-110-p float-l">
+          <div class="legend-box bg-color-eda09a"></div>
+          <div class="legend-text">
+            <span>Daily No. of Visits</span>
+          </div>
+        </div>
+        <div class="pd-10 dl-flex w-110-p float-l">
+          <div class="legend-box bg-color-fddfb1"></div>
+          <div class="legend-text">
+            <span>Day Avg. No. of Visits</span>
+          </div>
+        </div>
+        <div class="pd-10 dl-flex w-110-p float-l">
+          <div class="legend-line bg-color-c7e7c0"></div>
+          <div class="legend-text">
+            <span>Avg. Mnthly Gallons</span>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>
